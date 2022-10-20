@@ -1,30 +1,29 @@
 import "./css/index.css"
 import IMask from "imask"
 
-const ccbgcolor01 = document.querySelector(".cc-bg svg > g g:nth-child(1) path")
-const ccbgcolor02 = document.querySelector(".cc-bg svg > g g:nth-child(2) path")
+const ccBgColor01 = document.querySelector(".cc-bg svg > g g:nth-child(1) path")
+const ccBgColor02 = document.querySelector(".cc-bg svg > g g:nth-child(2) path")
 const ccLogo = document.querySelector(".cc-logo span:nth-child(2) img")
 
 function setCardType(type) {
   const colors = {
     visa: ["#436D99", "#2D57F2"],
-    MasterCard: ["#C69347", "#DF6F29"],
+    mastercard: ["#DF6F29", "#C69347"],
+    rocketseat: ["#0D6F5D", "#C3129C"],
     default: ["black", "gray"],
   }
 
-  ccbgcolor01.setAttribute("fill", colors[type][0])
-  ccbgcolor02.setAttribute("fill", colors[type][1])
+  ccBgColor01.setAttribute("fill", colors[type][0])
+  ccBgColor02.setAttribute("fill", colors[type][1])
   ccLogo.setAttribute("src", `cc-${type}.svg`)
 }
 
 globalThis.setCardType = setCardType
 
-// security code
 const securityCode = document.querySelector("#security-code")
 const securityCodePattern = {
   mask: "0000",
 }
-
 const securityCodeMasked = IMask(securityCode, securityCodePattern)
 
 const expirationDate = document.querySelector("#expiration-date")
@@ -40,8 +39,8 @@ const expirationDatePattern = {
       mask: IMask.MaskedRange,
       from: 1,
       to: 12,
-    }
-  }
+    },
+  },
 }
 const expirationDateMasked = IMask(expirationDate, expirationDatePattern)
 
@@ -63,15 +62,15 @@ const cardNumberPattern = {
       cardtype: "default",
     },
   ],
-  dispatch: function(appended, dynamicMasked) {
-     const number = (dynamicMasked.value + appended).replace(/\D/g, "")
-     const foundMask = dynamicMasked.compiledMasks.find(function (item) {
+  dispatch: function (appended, dynamicMasked) {
+    const number = (dynamicMasked.value + appended).replace(/\D/g, "")
+    const foundMask = dynamicMasked.compiledMasks.find(function (item) {
       return number.match(item.regex)
-     })
+    })
 
-     console.log(foundMask)
-
-     return foundMask
+    console.log(foundMask)
+    
+    return foundMask
   },
 }
 const cardNumberMasked = IMask(cardNumber, cardNumberPattern)
