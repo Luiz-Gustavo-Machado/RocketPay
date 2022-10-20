@@ -18,6 +18,8 @@ function setCardType(type) {
   ccLogo.setAttribute("src", `cc-${type}.svg`)
 }
 
+setCardType("default")
+
 globalThis.setCardType = setCardType
 
 const securityCode = document.querySelector("#security-code")
@@ -69,7 +71,7 @@ const cardNumberPattern = {
     })
 
     console.log(foundMask)
-    
+
     return foundMask
   },
 }
